@@ -9,6 +9,9 @@ const app = (() => {
   const form = document.getElementById("contact-form");
   const loadingScreen = document.getElementById("loading-screen");
   const navLinks = document.querySelectorAll(".nav-link");
+  const sideTabToggle = document.getElementById("side-tab-toggle");
+  const sideTabPanel = document.getElementById("side-tab-panel");
+  const sideTabItems = document.querySelectorAll(".side-tab-item");
   let testimonialIndex = 0;
 
   const updateTestimonial = () => {
@@ -44,39 +47,87 @@ const app = (() => {
     if (!isActive) item.classList.add("active");
   };
 
+  const handleSideTabToggle = () => {
+    if (!sideTabPanel || !sideTabToggle) return;
+    const isOpen = sideTabPanel.classList.toggle("open");
+    sideTabToggle.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  const handleSideTabItemClick = (item) => {
+    const targetId = item.dataset.target;
+    if (targetId) {
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    sideTabItems.forEach((tab) => tab.classList.remove("active"));
+    item.classList.add("active");
+
+    if (sideTabPanel) {
+      sideTabPanel.classList.remove("open");
+    }
+    if (sideTabToggle) {
+      sideTabToggle.setAttribute("aria-expanded", "false");
+    }
+  };
 
   const initEvents = () => {
     window.addEventListener("scroll", handleScroll);
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    if (backToTop) {
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
 
-    navToggle.addEventListener("click", () => {
-      const isOpen = !navMenu.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", String(isOpen));
-    });
+    if (navToggle && navMenu) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = !navMenu.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
 
     navLinks.forEach((link) => {
       link.addEventListener("click", () => {
-        navMenu.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
+        if (navMenu) {
+          navMenu.classList.remove("open");
+        }
+        if (navToggle) {
+          navToggle.setAttribute("aria-expanded", "false");
+        }
       });
     });
 
     faqItems.forEach((item) => {
-      item.querySelector(".faq-question").addEventListener("click", () => handleFaqClick(item));
+      const question = item.querySelector(".faq-question");
+      if (question) {
+        question.addEventListener("click", () => handleFaqClick(item));
+      }
     });
 
-    prevBtn.addEventListener("click", () => {
-      testimonialIndex = testimonialIndex === 0 ? testimonialCards.length - 1 : testimonialIndex - 1;
-      updateTestimonial();
+    if (sideTabToggle) {
+      sideTabToggle.addEventListener("click", handleSideTabToggle);
+    }
+
+    sideTabItems.forEach((item) => {
+      item.addEventListener("click", () => handleSideTabItemClick(item));
     });
 
-    nextBtn.addEventListener("click", () => {
-      testimonialIndex = testimonialIndex === testimonialCards.length - 1 ? 0 : testimonialIndex + 1;
-      updateTestimonial();
-    });
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        testimonialIndex = testimonialIndex === 0 ? testimonialCards.length - 1 : testimonialIndex - 1;
+        updateTestimonial();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        testimonialIndex = testimonialIndex === testimonialCards.length - 1 ? 0 : testimonialIndex + 1;
+        updateTestimonial();
+      });
+    }
   };
 
   const init = () => {
@@ -87,8 +138,12 @@ const app = (() => {
 
     updateTestimonial();
     initEvents();
-    animations.init();
-    particles.init();
+    if (typeof animations !== "undefined" && animations.init) {
+      animations.init();
+    }
+    if (typeof particles !== "undefined" && particles.init) {
+      particles.init();
+    }
     handleScroll();
 
     window.addEventListener("load", () => {
