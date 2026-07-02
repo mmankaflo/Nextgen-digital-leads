@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 120" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">Nextgen Digital Leads logo</title>
+  <desc id="logoDesc">A modern brand mark with a geometric icon and refined type for Nextgen Digital Leads.</desc>
+  <defs>
+    <linearGradient id="brandGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00C853" />
+      <stop offset="100%" stop-color="#00A37C" />
+    </linearGradient>
+    <clipPath id="glyphClip">
+      <path d="M16 20 L40 20 L64 44 L64 84 L40 108 L16 108 Z" />
+    </clipPath>
+  </defs>
+  <rect width="560" height="120" fill="none" />
+  <g transform="translate(16,6)">
+    <rect x="0" y="0" width="108" height="108" rx="28" fill="url(#brandGradient)" />
+    <path d="M32 38 L54 38 L72 56 L72 86 L54 104 L32 104 Z" fill="#FFFFFF" opacity="0.85" />
+    <path d="M46 38 L70 38 L94 62 L94 92 L70 116 L46 116 Z" fill="#FFFFFF" opacity="0.55" transform="translate(-14,-18)" />
+    <circle cx="68" cy="62" r="10" fill="#FFFFFF" opacity="0.9" />
+  </g>
+  <g transform="translate(140,40)">
+    <text x="0" y="0" fill="#E9F7EF" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">Nextgen</text>
+    <text x="0" y="36" fill="#9CCBB3" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">Digital Leads</text>
+  </g>
+  <text x="140" y="96" fill="#7AA38F" font-family="Inter, Arial, sans-serif" font-size="16">Digital strategy • Design • Growth</text>
+</svg>
