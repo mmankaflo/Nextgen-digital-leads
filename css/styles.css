@@ -938,10 +938,12 @@ textarea::placeholder {
   opacity: 0;
   transform: translateY(-10px);
   transition: max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .side-tab-panel.open {
-  max-height: 420px;
+  max-height: 600px;
   opacity: 1;
   transform: translateY(0);
 }
@@ -957,6 +959,7 @@ textarea::placeholder {
   font-size: 0.95rem;
   cursor: pointer;
   transition: background var(--transition), color var(--transition);
+  flex-shrink: 0;
 }
 
 .side-tab-item:hover,

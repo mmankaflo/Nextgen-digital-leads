@@ -65,12 +65,7 @@ const app = (() => {
     sideTabItems.forEach((tab) => tab.classList.remove("active"));
     item.classList.add("active");
 
-    if (sideTabPanel) {
-      sideTabPanel.classList.remove("open");
-    }
-    if (sideTabToggle) {
-      sideTabToggle.setAttribute("aria-expanded", "false");
-    }
+    // Keep panel open for continued navigation
   };
 
   const initEvents = () => {
@@ -112,7 +107,14 @@ const app = (() => {
     }
 
     sideTabItems.forEach((item) => {
-      item.addEventListener("click", () => handleSideTabItemClick(item));
+      item.addEventListener("click", (e) => {
+        // Don't prevent default for external links
+        if (item.classList.contains("side-tab-link") && item.getAttribute("href")) {
+          return;
+        }
+        e.preventDefault();
+        handleSideTabItemClick(item);
+      });
     });
 
     if (prevBtn) {
