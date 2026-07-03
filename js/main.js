@@ -190,9 +190,39 @@ const app = (() => {
     });
 
     if (form && formStatus) {
-      form.addEventListener("submit", () => {
-        formStatus.textContent = "Your request has been successfully sent and a consultant will reach out to you within 24h.";
-        formStatus.className = "form-status success";
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton?.textContent || "Send Message";
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = "Sending...";
+        }
+
+        formStatus.textContent = "";
+        formStatus.className = "form-status";
+
+        try {
+          await fetch(form.action, {
+            method: form.method || "POST",
+            body: new FormData(form),
+            mode: "no-cors"
+          });
+
+          form.reset();
+          formStatus.textContent = "Your request has been successfully sent and a consultant will reach out within 24h.";
+          formStatus.className = "form-status success";
+        } catch (error) {
+          formStatus.textContent = "There was a problem sending your request. Please try again or contact us directly.";
+          formStatus.className = "form-status error";
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+          }
+        }
       });
     }
   };
