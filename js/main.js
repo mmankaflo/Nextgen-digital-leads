@@ -7,11 +7,17 @@ const app = (() => {
   const prevBtn = document.getElementById("prev-testimonial");
   const nextBtn = document.getElementById("next-testimonial");
   const form = document.getElementById("contact-form");
+  const formStatus = document.getElementById("form-status");
   const loadingScreen = document.getElementById("loading-screen");
   const navLinks = document.querySelectorAll(".nav-link");
   const sideTabToggle = document.getElementById("side-tab-toggle");
   const sideTabPanel = document.getElementById("side-tab-panel");
   const sideTabItems = document.querySelectorAll(".side-tab-item");
+  const modalOverlay = document.getElementById("project-modal");
+  const modalClose = document.getElementById("modal-close");
+  const modalTitle = document.getElementById("modal-title");
+  const modalDescription = document.getElementById("modal-description");
+  const modalTags = document.getElementById("modal-tags");
   let testimonialIndex = 0;
 
   const updateTestimonial = () => {
@@ -66,6 +72,21 @@ const app = (() => {
     item.classList.add("active");
 
     // Keep panel open for continued navigation
+  };
+
+  const openProjectModal = (title, description, tags = []) => {
+    if (!modalOverlay || !modalTitle || !modalDescription || !modalTags) return;
+    modalTitle.textContent = title;
+    modalDescription.textContent = description;
+    modalTags.innerHTML = tags.map((tag) => `<span>${tag}</span>`).join("");
+    modalOverlay.classList.add("open");
+    modalOverlay.setAttribute("aria-hidden", "false");
+  };
+
+  const closeProjectModal = () => {
+    if (!modalOverlay) return;
+    modalOverlay.classList.remove("open");
+    modalOverlay.setAttribute("aria-hidden", "true");
   };
 
   const initEvents = () => {
@@ -128,6 +149,50 @@ const app = (() => {
       nextBtn.addEventListener("click", () => {
         testimonialIndex = testimonialIndex === testimonialCards.length - 1 ? 0 : testimonialIndex + 1;
         updateTestimonial();
+      });
+    }
+
+    document.querySelectorAll(".view-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const card = button.closest(".portfolio-item");
+        const title = card?.querySelector(".portfolio-info h3")?.textContent || "Project Preview";
+        const description = card?.querySelector(".portfolio-info p")?.textContent || "We create tailored digital experiences that help businesses grow with clarity and impact.";
+        const tags = Array.from(card?.querySelectorAll(".tech-tags span") || []).map((tag) => tag.textContent);
+        openProjectModal(title, description, tags);
+      });
+    });
+
+    if (modalClose) {
+      modalClose.addEventListener("click", closeProjectModal);
+    }
+
+    if (modalOverlay) {
+      modalOverlay.addEventListener("click", (event) => {
+        if (event.target === modalOverlay) {
+          closeProjectModal();
+        }
+      });
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeProjectModal();
+      }
+    });
+
+    document.querySelectorAll("[data-scroll-target]").forEach((element) => {
+      element.addEventListener("click", () => {
+        const target = document.querySelector(element.dataset.scrollTarget);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+
+    if (form && formStatus) {
+      form.addEventListener("submit", () => {
+        formStatus.textContent = "Sending your request...";
+        formStatus.className = "form-status success";
       });
     }
   };
