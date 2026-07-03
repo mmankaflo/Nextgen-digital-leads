@@ -191,7 +191,7 @@ const app = (() => {
 
     if (form && formStatus) {
       form.addEventListener("submit", () => {
-        formStatus.textContent = "Sending your request...";
+        formStatus.textContent = "Your request has been successfully sent and a consultant will reach out to you within 24h.";
         formStatus.className = "form-status success";
       });
     }
