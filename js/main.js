@@ -100,7 +100,7 @@ const app = (() => {
 
     if (navToggle && navMenu) {
       navToggle.addEventListener("click", () => {
-        const isOpen = !navMenu.classList.toggle("open");
+        const isOpen = navMenu.classList.toggle("open");
         navToggle.setAttribute("aria-expanded", String(isOpen));
       });
     }
