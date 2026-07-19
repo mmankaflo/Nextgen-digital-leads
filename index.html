@@ -574,8 +574,7 @@
                         <a href="/contact/" class="btn btn-primary">Visit Contact Page</a>
                     </div>
                 </div>
-                <form class="contact-form reveal" id="contact-form" action="https://formsubmit.co/florencemmanka04@gmail.com" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="_next" value="/thank-you.html">
+                <form class="contact-form reveal" id="contact-form" action="https://formsubmit.co/florencemmanka04@gmail.com" method="POST" enctype="multipart/form-data" target="hidden_iframe">
                     <input type="hidden" name="_subject" value="New inquiry from Nextgen Digital Leads">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
@@ -677,6 +676,7 @@
                     <button type="submit" class="btn btn-primary">Send Message</button>
                     <p class="form-status" id="form-status" aria-live="polite"></p>
                 </form>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
             </div>
         </div>
     </section>

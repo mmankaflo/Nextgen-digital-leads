@@ -292,17 +292,39 @@ const app = (() => {
     });
 
     if (form && formStatus) {
-      form.addEventListener("submit", () => {
-        const submitButton = form.querySelector('button[type="submit"]');
+      const iframe = document.getElementById("hidden_iframe");
+      let hasSubmitted = false;
 
+      form.addEventListener("submit", () => {
+        hasSubmitted = true;
+
+        const submitButton = form.querySelector('button[type="submit"]');
         if (submitButton) {
           submitButton.disabled = true;
           submitButton.textContent = "Sending...";
         }
 
-        formStatus.textContent = "Thank you! Your request is being sent. Please wait a moment...";
-        formStatus.className = "form-status success";
+        formStatus.textContent = "Sending your request...";
+        formStatus.className = "form-status";
       });
+
+      if (iframe) {
+        iframe.addEventListener("load", () => {
+          if (!hasSubmitted) return;
+
+          hasSubmitted = false;
+          form.reset();
+
+          const submitButton = form.querySelector('button[type="submit"]');
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Send Message";
+          }
+
+          formStatus.textContent = "Thank you! Your request has been received and we will get back to you shortly.";
+          formStatus.className = "form-status success";
+        });
+      }
     }
   };
 
