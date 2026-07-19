@@ -35,7 +35,11 @@ const app = (() => {
     }
 
     navLinks.forEach((link) => {
-      const target = document.querySelector(link.getAttribute("href"));
+      const href = link.getAttribute("href");
+      // Only handle in-page fragment links (e.g. "#services") —
+      // skip absolute or path links which are not valid selectors.
+      if (!href || !href.startsWith("#")) return;
+      const target = document.querySelector(href);
       if (!target) return;
       const top = target.offsetTop - 110;
       const bottom = top + target.offsetHeight;
