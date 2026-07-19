@@ -329,12 +329,37 @@ const app = (() => {
     }
   };
 
+  const shouldSkipLoadingScreen = () => {
+    return window.matchMedia("(max-width: 900px)").matches ||
+      window.matchMedia("(pointer: coarse)").matches ||
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0;
+  };
+
+  const hideLoadingScreen = () => {
+    if (!loadingScreen || loadingScreen.classList.contains("loaded")) return;
+
+    loadingScreen.classList.add("loaded");
+
+    if (shouldSkipLoadingScreen()) {
+      loadingScreen.remove();
+      return;
+    }
+
+    setTimeout(() => {
+      if (loadingScreen?.parentNode) {
+        loadingScreen.remove();
+      }
+    }, 600);
+  };
+
   const init = () => {
     if (window.location.hash) {
       const element = document.querySelector(window.location.hash);
       if (element) element.scrollIntoView({ behavior: "smooth" });
     }
 
+    hideLoadingScreen();
     updateTestimonial();
     initEvents();
     if (typeof animations !== "undefined" && animations.init) {
@@ -345,12 +370,19 @@ const app = (() => {
     }
     handleScroll();
 
-    window.addEventListener("load", () => {
-      if (loadingScreen) {
-        loadingScreen.classList.add("loaded");
-        setTimeout(() => loadingScreen.remove(), 600);
-      }
-    });
+    const finishLoading = () => {
+      hideLoadingScreen();
+    };
+
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      window.setTimeout(finishLoading, 800);
+    } else {
+      document.addEventListener("DOMContentLoaded", () => {
+        window.setTimeout(finishLoading, 800);
+      }, { once: true });
+    }
+
+    window.addEventListener("load", finishLoading, { once: true });
   };
 
   return { init };
