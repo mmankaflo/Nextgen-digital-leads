@@ -36,10 +36,12 @@
     <nav class="navbar sticky-nav">
         <div class="container">
             <div class="nav-wrapper">
-                <a href="#home" class="logo brand-logo" aria-label="Nextgen Digital Leads home">
-                    <img src="assets/logo.svg" alt="Nextgen Digital Leads logo" class="logo-image">
+                <a href="#home" class="logo brand-logo" aria-label="NextGen Digital Leads home">
                     <div class="logo-copy">
-                        <span class="logo-text">Nextgen Digital <span class="logo-accent">Leads</span></span>
+                        <span class="logo-text">
+                            <span class="logo-text-main">NextGen</span>
+                            <span class="logo-accent">Digital Leads</span>
+                        </span>
                         <span class="logo-tagline">Innovating Today. Empowering Tomorrow.</span>
                     </div>
                 </a>
@@ -51,7 +53,37 @@
                 <ul class="nav-menu" id="nav-menu">
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li class="nav-item dropdown">
+                        <button type="button" class="nav-link dropdown-toggle" aria-expanded="false" aria-controls="services-dropdown">Services</button>
+                        <div class="dropdown-menu" id="services-dropdown" role="menu">
+                            <div class="dropdown-branch">
+                                <button type="button" class="dropdown-trigger" data-submenu="south-africa" aria-expanded="false">South Africa</button>
+                                <div class="dropdown-submenu" id="south-africa">
+                                    <a href="services/website-design-south-africa.html" class="dropdown-item">Website Design</a>
+                                    <a href="services/web-development-south-africa.html" class="dropdown-item">Web Development</a>
+                                    <a href="services/seo-south-africa.html" class="dropdown-item">SEO Services</a>
+                                    <a href="services/digital-marketing-south-africa.html" class="dropdown-item">Digital Marketing</a>
+                                    <a href="services/ai-automation-south-africa.html" class="dropdown-item">AI Automation</a>
+                                    <a href="services/cloud-solutions-south-africa.html" class="dropdown-item">Cloud Solutions</a>
+                                    <a href="services/it-consulting-south-africa.html" class="dropdown-item">IT Consulting</a>
+                                    <a href="services/custom-software-development-south-africa.html" class="dropdown-item">Custom Software Development</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-branch">
+                                <button type="button" class="dropdown-trigger" data-submenu="united-states" aria-expanded="false">United States</button>
+                                <div class="dropdown-submenu" id="united-states">
+                                    <a href="services/website-design-usa.html" class="dropdown-item">Website Design</a>
+                                    <a href="services/web-development-usa.html" class="dropdown-item">Web Development</a>
+                                    <a href="services/seo-usa.html" class="dropdown-item">SEO Services</a>
+                                    <a href="services/digital-marketing-usa.html" class="dropdown-item">Digital Marketing</a>
+                                    <a href="services/ai-automation-usa.html" class="dropdown-item">AI Automation</a>
+                                    <a href="services/cloud-solutions-usa.html" class="dropdown-item">Cloud Solutions</a>
+                                    <a href="services/it-consulting-usa.html" class="dropdown-item">IT Consulting</a>
+                                    <a href="services/custom-software-development-usa.html" class="dropdown-item">Custom Software Development</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li><a href="#why-us" class="nav-link">Why Us</a></li>
                     <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
                     <li><a href="#pricing" class="nav-link">Pricing</a></li>
@@ -84,6 +116,7 @@
             <div class="hero-text reveal">
                 <h1 class="hero-title">Transform Your Business with Next-Generation Digital Solutions</h1>
                 <p class="hero-subtitle">Innovating Today. Empowering Tomorrow.</p>
+                <p class="hero-subtitle" style="font-size: 1rem; margin-top: 0.35rem;">NextGen Digital Leads proudly serves businesses in South Africa, the United States, and internationally.</p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Get Started</button>
                     <button class="btn btn-secondary" onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' })">View Our Services</button>
@@ -168,6 +201,7 @@
             <div class="section-title reveal">
                 <h2>Our Services</h2>
                 <p>Comprehensive Digital Solutions Tailored to Your Needs</p>
+                <p style="margin-top: 0.85rem; font-size: 0.98rem;">We also support businesses in South Africa and the United States with dedicated service pages for <a href="services/website-design-south-africa.html" style="color: var(--primary);">South Africa</a> and <a href="services/website-design-usa.html" style="color: var(--primary);">the USA</a>.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card reveal">
@@ -215,7 +249,7 @@
                     <p>Native and cross-platform mobile apps that deliver exceptional user experiences on iOS and Android.</p>
                 </div>
                 <div class="service-card reveal">
-                    <img class="service-card-image" src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=80" alt="Cloud infrastructure concept in a workspace">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Modern cloud infrastructure and data center technology">
                     <div class="card-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2"></polygon>
@@ -756,19 +790,98 @@
                     <input type="hidden" name="_next" value="https://nextgendigitalleads.com/thank-you.html">
                     <input type="hidden" name="_subject" value="New inquiry from Nextgen Digital Leads">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Your Name" required id="form-name" aria-label="Your Name">
+                        <input type="text" name="full_name" placeholder="Full Name *" required id="form-full-name" aria-label="Full Name">
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Your Email" required id="form-email" aria-label="Your Email">
+                        <input type="text" name="company_name" placeholder="Company Name" id="form-company" aria-label="Company Name">
                     </div>
                     <div class="form-group">
-                        <input type="tel" name="phone" placeholder="Your Phone" id="form-phone" aria-label="Your Phone">
+                        <input type="email" name="email" placeholder="Email Address *" required id="form-email" aria-label="Email Address">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="subject" placeholder="Project Title" required id="form-subject" aria-label="Project Title">
+                        <input type="tel" name="phone" placeholder="Phone Number (including country code)" id="form-phone" aria-label="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="whatsapp" placeholder="WhatsApp Number" id="form-whatsapp" aria-label="WhatsApp Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="country" placeholder="Country *" required id="form-country" aria-label="Country">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="city" placeholder="City" id="form-city" aria-label="City">
+                    </div>
+                    <div class="form-group">
+                        <input type="url" name="website" placeholder="Business Website (optional)" id="form-website" aria-label="Business Website">
+                    </div>
+                    <div class="form-group">
+                        <select name="industry" required id="form-industry" aria-label="Industry">
+                            <option value="">Industry *</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Professional Services">Professional Services</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Education">Education</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Hospitality">Hospitality</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="company_size" id="form-company-size" aria-label="Company Size">
+                            <option value="">Company Size</option>
+                            <option value="Just Me">Just Me</option>
+                            <option value="2–10 Employees">2–10 Employees</option>
+                            <option value="11–50 Employees">11–50 Employees</option>
+                            <option value="51+">51+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="service_interest" required id="form-service-interest" aria-label="Service Interest">
+                            <option value="">Which service are you interested in? *</option>
+                            <option value="Website Design">Website Design</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="SEO">SEO</option>
+                            <option value="Digital Marketing">Digital Marketing</option>
+                            <option value="AI Automation">AI Automation</option>
+                            <option value="Cloud Solutions">Cloud Solutions</option>
+                            <option value="IT Consulting">IT Consulting</option>
+                            <option value="Custom Software Development">Custom Software Development</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="budget" id="form-budget" aria-label="Estimated Budget">
+                            <option value="">Estimated Budget</option>
+                            <option value="Under $500 / R10 000">Under $500 / R10 000</option>
+                            <option value="$500–$2,000">$500–$2,000</option>
+                            <option value="$2,000–$5,000">$2,000–$5,000</option>
+                            <option value="Above $5,000">Above $5,000</option>
+                            <option value="Let's discuss">Let's discuss</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="timeline" id="form-timeline" aria-label="Project Timeline">
+                            <option value="">Project Timeline</option>
+                            <option value="ASAP">ASAP</option>
+                            <option value="Within 1 Month">Within 1 Month</option>
+                            <option value="1–3 Months">1–3 Months</option>
+                            <option value="Flexible">Flexible</option>
+                        </select>
                     </div>
                     <div class="form-group full">
-                        <textarea name="message" placeholder="Tell us about your project..." rows="5" required id="form-message" aria-label="Project Message"></textarea>
+                        <textarea name="project_details" placeholder="Tell us about your project *" rows="5" required id="form-message" aria-label="Project Details"></textarea>
+                    </div>
+                    <div class="form-group full">
+                        <select name="contact_method" id="form-contact-method" aria-label="Preferred contact method">
+                            <option value="">Preferred contact method</option>
+                            <option value="Email">Email</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Phone Call">Phone Call</option>
+                        </select>
+                    </div>
+                    <div class="form-group full checkbox-row">
+                        <input type="checkbox" name="agree_to_contact" id="form-agree" checked>
+                        <label for="form-agree">I agree to be contacted regarding my enquiry.</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                     <p class="form-status" id="form-status" aria-live="polite"></p>
@@ -837,7 +950,7 @@
             <h3 id="modal-title">Project Preview</h3>
             <p id="modal-description">We craft tailored digital experiences that help businesses grow with clarity and impact.</p>
             <div class="modal-tags" id="modal-tags"></div>
-            <a href="#contact" class="btn btn-primary modal-cta" data-scroll-target="#contact">Book a Consultation</a>
+            <a href="#contact-form" class="btn btn-primary modal-cta" data-scroll-target="#contact-form">Book a Consultation</a>
         </div>
     </div>
 

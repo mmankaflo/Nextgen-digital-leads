@@ -2,6 +2,7 @@ const app = (() => {
   const backToTop = document.getElementById("back-to-top");
   const navToggle = document.getElementById("nav-toggle");
   const navMenu = document.getElementById("nav-menu");
+  const dropdowns = document.querySelectorAll(".dropdown");
   const faqItems = document.querySelectorAll(".faq-item");
   const testimonialCards = document.querySelectorAll(".testimonial-card");
   const prevBtn = document.getElementById("prev-testimonial");
@@ -9,7 +10,7 @@ const app = (() => {
   const form = document.getElementById("contact-form");
   const formStatus = document.getElementById("form-status");
   const loadingScreen = document.getElementById("loading-screen");
-  const navLinks = document.querySelectorAll(".nav-link");
+  const navLinks = document.querySelectorAll('.nav-link[href]');
   const sideTabToggle = document.getElementById("side-tab-toggle");
   const sideTabPanel = document.getElementById("side-tab-panel");
   const sideTabItems = document.querySelectorAll(".side-tab-item");
@@ -45,6 +46,36 @@ const app = (() => {
         link.classList.remove("active");
       }
     });
+  };
+
+  const closeSubmenus = () => {
+    document.querySelectorAll(".dropdown-branch").forEach((branch) => {
+      branch.classList.remove("open");
+      const trigger = branch.querySelector(".dropdown-trigger");
+      if (trigger) {
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+  };
+
+  const closeDropdowns = () => {
+    dropdowns.forEach((dropdown) => {
+      dropdown.classList.remove("open");
+      const toggle = dropdown.querySelector(".dropdown-toggle");
+      if (toggle) {
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+    closeSubmenus();
+  };
+
+  const openDropdown = (dropdown) => {
+    closeDropdowns();
+    dropdown.classList.add("open");
+    const toggle = dropdown.querySelector(".dropdown-toggle");
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", "true");
+    }
   };
 
   const handleFaqClick = (item) => {
@@ -113,7 +144,72 @@ const app = (() => {
         if (navToggle) {
           navToggle.setAttribute("aria-expanded", "false");
         }
+        closeDropdowns();
       });
+    });
+
+    dropdowns.forEach((dropdown) => {
+      const toggle = dropdown.querySelector(".dropdown-toggle");
+      if (!toggle) return;
+
+      toggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        const isOpen = dropdown.classList.contains("open");
+        if (isOpen) {
+          closeDropdowns();
+        } else {
+          openDropdown(dropdown);
+        }
+      });
+
+      dropdown.addEventListener("mouseenter", () => openDropdown(dropdown));
+      dropdown.addEventListener("mouseleave", closeDropdowns);
+      toggle.addEventListener("focus", () => openDropdown(dropdown));
+      toggle.addEventListener("blur", () => {
+        setTimeout(() => {
+          if (!dropdown.contains(document.activeElement)) {
+            closeDropdowns();
+          }
+        }, 120);
+      });
+    });
+
+    document.querySelectorAll(".dropdown-trigger").forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        const branch = trigger.closest(".dropdown-branch");
+        if (!branch) return;
+        const isOpen = branch.classList.contains("open");
+        document.querySelectorAll(".dropdown-branch").forEach((item) => {
+          item.classList.remove("open");
+          const itemTrigger = item.querySelector(".dropdown-trigger");
+          if (itemTrigger) {
+            itemTrigger.setAttribute("aria-expanded", "false");
+          }
+        });
+        if (!isOpen) {
+          branch.classList.add("open");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+
+    document.querySelectorAll(".dropdown-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        closeDropdowns();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".dropdown")) {
+        closeDropdowns();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeDropdowns();
+      }
     });
 
     faqItems.forEach((item) => {
