@@ -292,7 +292,7 @@ const app = (() => {
     });
 
     if (form && formStatus) {
-      form.addEventListener("submit", (event) => {
+      form.addEventListener("submit", () => {
         const submitButton = form.querySelector('button[type="submit"]');
 
         if (submitButton) {
@@ -300,8 +300,8 @@ const app = (() => {
           submitButton.textContent = "Sending...";
         }
 
-        formStatus.textContent = "Sending your request...";
-        formStatus.className = "form-status";
+        formStatus.textContent = "Thank you! Your request is being sent. Please wait a moment...";
+        formStatus.className = "form-status success";
       });
     }
   };
