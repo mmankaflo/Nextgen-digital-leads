@@ -158,6 +158,7 @@ const app = (() => {
 
       toggle.addEventListener("click", (event) => {
         event.preventDefault();
+        event.stopPropagation();
         const isOpen = dropdown.classList.contains("open");
         if (isOpen) {
           closeDropdowns();
@@ -181,6 +182,7 @@ const app = (() => {
     document.querySelectorAll(".dropdown-trigger").forEach((trigger) => {
       trigger.addEventListener("click", (event) => {
         event.preventDefault();
+        event.stopPropagation();
         const branch = trigger.closest(".dropdown-branch");
         if (!branch) return;
         const isOpen = branch.classList.contains("open");
